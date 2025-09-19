@@ -14,7 +14,13 @@ import {
   Target,
   Users,
   Accessibility,
-  Smartphone
+  Smartphone,
+  Upload,
+  Plus,
+  ArrowLeftRight,
+  Sparkles,
+  Settings,
+  Check
 } from 'lucide-react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
@@ -32,6 +38,9 @@ export function AnalysisDashboard({ uploadedFile }: AnalysisDashboardProps) {
   const [overallScore, setOverallScore] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [selectedIssue, setSelectedIssue] = useState<number | null>(null);
+  const [selectedDesignSystem, setSelectedDesignSystem] = useState<string | null>(null);
+  const [isConverting, setIsConverting] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   // Mock analysis data
   const analysisData = {
@@ -141,6 +150,28 @@ export function AnalysisDashboard({ uploadedFile }: AnalysisDashboardProps) {
       setIsAnalyzing(false);
       toast.success('Re-analysis complete!');
     }, 3000);
+  };
+
+  const handleDesignSystemSelect = (systemName: string) => {
+    setSelectedDesignSystem(systemName);
+    setShowPreview(true);
+    toast.info(`Previewing conversion to ${systemName}`);
+  };
+
+  const handleConvertDesign = () => {
+    if (!selectedDesignSystem) return;
+    
+    setIsConverting(true);
+    toast.info(`Converting design to ${selectedDesignSystem}...`);
+    
+    setTimeout(() => {
+      setIsConverting(false);
+      toast.success(`Design successfully converted to ${selectedDesignSystem}!`);
+    }, 3000);
+  };
+
+  const handleUploadDesignSystem = () => {
+    toast.info('Design system upload functionality coming soon!');
   };
 
   if (!uploadedFile) {
@@ -413,6 +444,255 @@ export function AnalysisDashboard({ uploadedFile }: AnalysisDashboardProps) {
                 </ScrollArea>
               </TabsContent>
             </Tabs>
+          </Card>
+        </motion.div>
+
+        {/* Design System Conversion */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mt-8"
+        >
+          <Card className="backdrop-blur-xl bg-white/5 border border-white/10">
+            <div className="p-6 border-b border-white/10">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Design System Conversion</h3>
+                  <p className="text-white/70">Transform your design to match industry-standard design systems</p>
+                </div>
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={handleUploadDesignSystem}
+                    className="border-white/20 text-white hover:bg-white/10"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    Upload Custom
+                  </Button>
+                  {selectedDesignSystem && (
+                    <Button
+                      onClick={handleConvertDesign}
+                      disabled={isConverting}
+                      className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white border-0"
+                    >
+                      {isConverting ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                          Converting...
+                        </>
+                      ) : (
+                        <>
+                          <Zap className="w-4 h-4 mr-2" />
+                          Apply Conversion
+                        </>
+                      )}
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6">
+              {/* Design Systems Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                {[
+                  {
+                    name: 'Material Design',
+                    description: 'Google\'s design system',
+                    color: 'from-blue-500 to-indigo-500',
+                    features: ['Material Icons', 'Elevation', 'Typography Scale']
+                  },
+                  {
+                    name: 'Apple HIG',
+                    description: 'Apple Human Interface Guidelines',
+                    color: 'from-gray-500 to-slate-600',
+                    features: ['SF Symbols', 'Dynamic Type', 'Accessibility']
+                  },
+                  {
+                    name: 'Ant Design',
+                    description: 'Enterprise design language',
+                    color: 'from-cyan-500 to-blue-500',
+                    features: ['Grid System', 'Components', 'Patterns']
+                  },
+                  {
+                    name: 'Chakra UI',
+                    description: 'Modular and accessible',
+                    color: 'from-teal-500 to-green-500',
+                    features: ['Dark Mode', 'Responsive', 'Composable']
+                  }
+                ].map((system, index) => (
+                  <motion.div
+                    key={system.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.9 + index * 0.1 }}
+                    whileHover={{ y: -5 }}
+                  >
+                    <Card 
+                      className={`cursor-pointer transition-all duration-300 border-2 ${
+                        selectedDesignSystem === system.name
+                          ? 'border-orange-500 bg-orange-500/10'
+                          : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
+                      }`}
+                      onClick={() => handleDesignSystemSelect(system.name)}
+                    >
+                      <div className="p-4">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className={`w-10 h-10 bg-gradient-to-r ${system.color} rounded-lg flex items-center justify-center`}>
+                            <Palette className="w-5 h-5 text-white" />
+                          </div>
+                          {selectedDesignSystem === system.name && (
+                            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
+                              <Check className="w-4 h-4 text-white" />
+                            </div>
+                          )}
+                        </div>
+                        <h4 className="text-white font-semibold mb-1">{system.name}</h4>
+                        <p className="text-white/60 text-sm mb-3">{system.description}</p>
+                        <div className="space-y-1">
+                          {system.features.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                              <div className="w-1 h-1 bg-orange-400 rounded-full"></div>
+                              <span className="text-white/70 text-xs">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Before/After Preview */}
+              {showPreview && selectedDesignSystem && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="mt-8"
+                >
+                  <Card className="backdrop-blur-xl bg-white/5 border border-white/10 p-6">
+                    <div className="flex items-center gap-3 mb-6">
+                      <ArrowLeftRight className="w-5 h-5 text-orange-400" />
+                      <h4 className="text-white text-lg font-semibold">
+                        Preview: Converting to {selectedDesignSystem}
+                      </h4>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {/* Before */}
+                      <div>
+                        <div className="flex items-center gap-2 mb-4">
+                          <Badge variant="secondary" className="bg-white/10 text-white/70">Before</Badge>
+                          <span className="text-white/70 text-sm">Current Design</span>
+                        </div>
+                        <div className="relative bg-white/10 rounded-lg p-4 min-h-[300px]">
+                          <div className="absolute inset-2 bg-white rounded-lg shadow-lg">
+                            <div className="p-4">
+                              <div className="h-6 bg-gray-200 rounded mb-3"></div>
+                              <div className="h-3 bg-gray-300 rounded mb-2"></div>
+                              <div className="h-3 bg-gray-300 rounded w-2/3 mb-4"></div>
+                              <div className="flex gap-3 mb-4">
+                                <div className="w-12 h-12 bg-gray-200 rounded"></div>
+                                <div className="flex-1">
+                                  <div className="h-3 bg-gray-300 rounded mb-1"></div>
+                                  <div className="h-2 bg-gray-400 rounded w-3/4"></div>
+                                </div>
+                              </div>
+                              <div className="h-8 bg-blue-500 rounded"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* After */}
+                      <div>
+                        <div className="flex items-center gap-2 mb-4">
+                          <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30">After</Badge>
+                          <span className="text-white/70 text-sm">{selectedDesignSystem} Style</span>
+                        </div>
+                        <div className="relative bg-white/10 rounded-lg p-4 min-h-[300px]">
+                          <div className="absolute inset-2 bg-white rounded-lg shadow-lg overflow-hidden">
+                            <div className="p-4">
+                              {selectedDesignSystem === 'Material Design' && (
+                                <>
+                                  <div className="h-7 bg-gray-800 rounded mb-3 shadow-md"></div>
+                                  <div className="h-3 bg-gray-600 rounded mb-2"></div>
+                                  <div className="h-3 bg-gray-600 rounded w-2/3 mb-4"></div>
+                                  <div className="flex gap-3 mb-4">
+                                    <div className="w-12 h-12 bg-blue-500 rounded-full shadow-lg"></div>
+                                    <div className="flex-1">
+                                      <div className="h-3 bg-gray-700 rounded mb-1"></div>
+                                      <div className="h-2 bg-gray-500 rounded w-3/4"></div>
+                                    </div>
+                                  </div>
+                                  <div className="h-10 bg-blue-600 rounded shadow-lg"></div>
+                                </>
+                              )}
+                              {selectedDesignSystem === 'Apple HIG' && (
+                                <>
+                                  <div className="h-8 bg-black rounded-lg mb-3"></div>
+                                  <div className="h-4 bg-gray-700 rounded mb-2"></div>
+                                  <div className="h-4 bg-gray-700 rounded w-2/3 mb-4"></div>
+                                  <div className="flex gap-3 mb-4">
+                                    <div className="w-14 h-14 bg-gray-200 rounded-xl"></div>
+                                    <div className="flex-1">
+                                      <div className="h-4 bg-gray-800 rounded mb-1"></div>
+                                      <div className="h-3 bg-gray-500 rounded w-3/4"></div>
+                                    </div>
+                                  </div>
+                                  <div className="h-11 bg-blue-500 rounded-xl"></div>
+                                </>
+                              )}
+                              {(selectedDesignSystem === 'Ant Design' || selectedDesignSystem === 'Chakra UI') && (
+                                <>
+                                  <div className="h-6 bg-gray-800 rounded mb-3 border-l-4 border-blue-500 pl-3"></div>
+                                  <div className="h-3 bg-gray-600 rounded mb-2"></div>
+                                  <div className="h-3 bg-gray-600 rounded w-2/3 mb-4"></div>
+                                  <div className="flex gap-3 mb-4 p-3 border border-gray-200 rounded">
+                                    <div className="w-12 h-12 bg-green-500 rounded"></div>
+                                    <div className="flex-1">
+                                      <div className="h-3 bg-gray-700 rounded mb-1"></div>
+                                      <div className="h-2 bg-gray-500 rounded w-3/4"></div>
+                                    </div>
+                                  </div>
+                                  <div className="h-9 bg-green-600 rounded border-2 border-green-700"></div>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                          <div className="absolute top-2 right-2">
+                            <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
+                              <Sparkles className="w-3 h-3 mr-1" />
+                              AI Enhanced
+                            </Badge>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Conversion Details */}
+                    <div className="mt-6 p-4 bg-orange-500/10 border border-orange-500/30 rounded-lg">
+                      <h5 className="text-orange-400 font-semibold mb-2">What will change:</h5>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                          <span className="text-white/70">• Typography: </span>
+                          <span className="text-white">Updated to {selectedDesignSystem} scale</span>
+                        </div>
+                        <div>
+                          <span className="text-white/70">• Colors: </span>
+                          <span className="text-white">Optimized palette</span>
+                        </div>
+                        <div>
+                          <span className="text-white/70">• Components: </span>
+                          <span className="text-white">Standard patterns</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              )}
+            </div>
           </Card>
         </motion.div>
       </div>

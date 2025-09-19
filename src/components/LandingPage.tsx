@@ -60,7 +60,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       name: 'Sarah Chen',
       role: 'Senior UX Designer at Spotify',
       avatar: 'SC',
-      quote: 'FlowCare has revolutionized our design review process. It catches issues we might have missed and saves hours of manual checking.',
+      quote: 'UiX Sense has revolutionized our design review process. It catches issues we might have missed and saves hours of manual checking.',
       rating: 5
     },
     {
@@ -297,7 +297,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               Loved by Designers Worldwide
             </h2>
             <p className="text-xl text-white/70">
-              Join thousands of designers who trust FlowCare for their design analysis
+              Join thousands of designers who trust UiX Sense for their design analysis
             </p>
           </div>
 
@@ -346,7 +346,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               Ready to Design Better?
             </h2>
             <p className="text-xl text-white/70 mb-8">
-              Join thousands of designers who create better, more accessible designs with FlowCare
+              Join thousands of designers who create better, more accessible designs with UiX Sense
             </p>
             <Button 
               size="lg" 
