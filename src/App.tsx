@@ -157,7 +157,7 @@ export default function App() {
           
           <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/50 text-sm">
-              © 2025 MacDannies. All rights reserved.
+              © 2025 MacDannies. All rights reserved 
             </p>
             <div className="flex gap-6 text-white/50 text-sm mt-4 md:mt-0">
               <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>

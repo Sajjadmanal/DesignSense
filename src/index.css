@@ -464,6 +464,10 @@
     container: card-header / inline-size;
   }
 
+  .pointer-events-none {
+    pointer-events: none;
+  }
+
   .absolute {
     position: absolute;
   }
@@ -620,8 +624,24 @@
     grid-row-start: 1;
   }
 
+  .-mx-6 {
+    margin-inline: calc(var(--spacing) * -6);
+  }
+
+  .mx-\[0px\] {
+    margin-inline: 0;
+  }
+
   .mx-auto {
     margin-inline: auto;
+  }
+
+  .-my-12 {
+    margin-block: calc(var(--spacing) * -12);
+  }
+
+  .my-\[24px\] {
+    margin-block: 24px;
   }
 
   .mt-2 {
@@ -694,6 +714,10 @@
 
   .ml-2 {
     margin-left: calc(var(--spacing) * 2);
+  }
+
+  .block {
+    display: block;
   }
 
   .contents {
@@ -1782,6 +1806,11 @@
     font-weight: var(--font-weight-medium);
   }
 
+  .font-normal {
+    --tw-font-weight: var(--font-weight-normal);
+    font-weight: var(--font-weight-normal);
+  }
+
   .font-semibold {
     --tw-font-weight: var(--font-weight-semibold);
     font-weight: var(--font-weight-semibold);
@@ -1915,12 +1944,24 @@
     text-underline-offset: 4px;
   }
 
+  .opacity-0 {
+    opacity: 0;
+  }
+
   .opacity-20 {
     opacity: .2;
   }
 
   .opacity-50 {
     opacity: .5;
+  }
+
+  .opacity-\[0\.02\] {
+    opacity: .02;
+  }
+
+  .opacity-\[0\.03\] {
+    opacity: .03;
   }
 
   .shadow-2xl {
