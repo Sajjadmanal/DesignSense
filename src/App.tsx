@@ -61,28 +61,28 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+    <div className="min-h-screen bg-[#001E2B] relative overflow-hidden">
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
         <motion.div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           animate={{
             background: [
-              'radial-gradient(circle at 20% 50%, rgba(255, 165, 0, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 40% 80%, rgba(255, 165, 0, 0.3) 0%, transparent 50%)',
-              'radial-gradient(circle at 20% 50%, rgba(255, 165, 0, 0.3) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 50%, rgba(0, 237, 100, 0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 20%, rgba(19, 197, 221, 0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 40% 80%, rgba(0, 237, 100, 0.15) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 50%, rgba(0, 237, 100, 0.15) 0%, transparent 50%)',
             ],
           }}
           transition={{
-            duration: 8,
+            duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
         
-        {/* Glassmorphism overlay */}
-        <div className="absolute inset-0 backdrop-blur-3xl bg-black/20" />
+        {/* Subtle overlay */}
+        <div className="absolute inset-0 bg-[#001E2B]/80" />
       </div>
 
       {/* Navigation */}
@@ -107,13 +107,13 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/10 bg-black/20 backdrop-blur-xl">
+      <footer className="relative z-10 border-t border-[#013D52] bg-[#012A3A]">
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-pink-500 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold">U</span>
+                <div className="w-8 h-8 bg-[#00ED64] rounded-lg flex items-center justify-center">
+                  <span className="text-[#001E2B] font-bold">U</span>
                 </div>
                 <span className="text-white text-xl font-bold">UiX Sense</span>
               </div>
@@ -122,13 +122,13 @@ export default function App() {
                 more accessible, and user-friendly digital experiences.
               </p>
               <div className="flex gap-4">
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all cursor-pointer">
+                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-[#00ED64]/20 transition-all cursor-pointer">
                   𝕏
                 </div>
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all cursor-pointer">
+                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-[#00ED64]/20 transition-all cursor-pointer">
                   ƒ
                 </div>
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all cursor-pointer">
+                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-[#00ED64]/20 transition-all cursor-pointer">
                   in
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function App() {
           
           <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/50 text-sm">
-              © 2024 UiX Sense. All rights reserved.
+              © 2025 MacDannies. All rights reserved.
             </p>
             <div className="flex gap-6 text-white/50 text-sm mt-4 md:mt-0">
               <span className="hover:text-white cursor-pointer transition-colors">Privacy Policy</span>
